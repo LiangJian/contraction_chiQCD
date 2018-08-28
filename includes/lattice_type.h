@@ -223,9 +223,14 @@ namespace contraction{
   template<typename T>
   class Lattice_color_spin_matrix{
   public:
+    std::string filename = "";
     Color_spin_matrix<T>* color_spin_matrixs;
     Lattice_color_spin_matrix(Layout layout){
 	color_spin_matrixs = new Color_spin_matrix<T>(layout.size_on_site);
+    }
+    void load(std::string filename_){
+	if(filename != ""){
+	}
     }
   };
 
