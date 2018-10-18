@@ -1,4 +1,10 @@
+# this is an example
 nx=4
+
 ny=4
-nz=4
+
+nz=4 #nz
+
 nt=8
+
+#kappa=2

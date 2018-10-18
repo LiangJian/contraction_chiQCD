@@ -24,14 +24,14 @@ int main(int ac , char *av[])
   hi.read();
   hi.list();
 
-  Layout layout(hi.pw["nx"].as<int>(),hi.pw["ny"].as<int>(),hi.pw["nz"].as<int>(),hi.pw["nt"].as<int>(),trivial,world);
+  //Layout layout(hi.pw["nx"].as<int>(),hi.pw["ny"].as<int>(),hi.pw["nz"].as<int>(),hi.pw["nt"].as<int>(),trivial,world);
 
   Color_vector<double> cv1;
   cv1 << 1, 2, 3;
   std::cout<<cv1<<std::endl;
   
   Color_matrix<double> cm1;
-  cv1 = cm1 * cv1;
+  auto cv2 = cm1 * cv1;
   
   return 0;
 }

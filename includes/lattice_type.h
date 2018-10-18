@@ -160,7 +160,7 @@ namespace contraction{
   template<typename T>
   class Lattice_vector{
   public:
-    Vector<T>* vectors;
+    std::unique_ptr<Vector<T>> vectors;
     Lattice_vector(Layout layout){
 	vectors = new Vector<T>(layout.size_on_site);
     }
@@ -169,7 +169,7 @@ namespace contraction{
   template<typename T>
   class Lattice_color_vector{
   public:
-    Color_vector<T>* color_vectors;
+    std::unique_ptr<Color_vector<T>> color_vectors;
     Lattice_color_vector(Layout layout){
 	color_vectors = new Color_vector<T>(layout.size_on_site);
     }
@@ -178,7 +178,7 @@ namespace contraction{
   template<typename T>
   class Lattice_spin_vector{
   public:
-    Spin_vector<T>* spin_vectors;
+    std::unique_ptr<Spin_vector<T>> spin_vectors;
     Lattice_spin_vector(Layout layout){
 	spin_vectors = new Spin_vector<T>(layout.size_on_site);
     }
@@ -187,7 +187,7 @@ namespace contraction{
   template<typename T>
   class Lattice_color_spin_vector{
   public:
-    Color_spin_vector<T>* color_spin_vectors;
+    std::unique_ptr<Color_spin_vector<T>> color_spin_vectors;
     Lattice_color_spin_vector(Layout layout){
 	color_spin_vectors = new Color_spin_vector<T>(layout.size_on_site);
     }
@@ -196,7 +196,7 @@ namespace contraction{
   template<typename T>
   class Lattice_spin_color_vector{
   public:
-    Spin_color_vector<T>* spin_color_vectors;
+    std::unique_ptr<Spin_color_vector<T>> spin_color_vectors;
     Lattice_spin_color_vector(Layout layout){
 	spin_color_vectors = new Spin_color_vector<T>(layout.size_on_site);
     }
@@ -205,7 +205,7 @@ namespace contraction{
   template<typename T>
   class Lattice_color_matrix{
   public:
-    Color_matrix<T>* color_matrixs;
+    std::unique_ptr<Color_matrix<T>> color_matrixs;
     Lattice_color_matrix(Layout layout){
 	color_matrixs = new Color_matrix<T>(layout.size_on_site);
     }
@@ -214,30 +214,22 @@ namespace contraction{
   template<typename T>
   class Lattice_spin_matrix{
   public:
-    Spin_matrix<T>* spin_matrixs;
+    std::unique_ptr<Spin_matrix<T>> spin_matrixs;
     Lattice_spin_matrix(Layout layout){
 	spin_matrixs = new Spin_matrix<T>(layout.size_on_site);
     }
   };
 
   template<typename T>
-  class Lattice_color_spin_matrix{
-  public:
-    std::string filename = "";
-    Color_spin_matrix<T>* color_spin_matrixs;
-    Lattice_color_spin_matrix(Layout layout){
-	color_spin_matrixs = new Color_spin_matrix<T>(layout.size_on_site);
-    }
-    void load(std::string filename_){
-	if(filename != ""){
-	}
-    }
-  };
+  class Lattice_color_spin_matrix;
+
+  template<typename T>
+  void load_prop(Lattice_color_spin_matrix<T>* prop, std::string filename);
 
   template<typename T>
   class Lattice_spin_color_matrix{
   public:
-    Spin_color_matrix<T>* spin_color_matrixs;
+    std::unique_ptr<Spin_color_matrix<T>> spin_color_matrixs;
     Lattice_spin_color_matrix(Layout layout){
 	spin_color_matrixs = new Spin_color_matrix<T>(layout.size_on_site);
     }

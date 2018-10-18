@@ -4,8 +4,9 @@ using namespace contraction;
 
 int main(int ac , char *av[])
 {
+
   Gammas ga;
-  
+
   //std::cout<<ga.g[1]<<std::endl; 
   //std::cout<<ga.g[2]<<std::endl; 
   //std::cout<<ga.g[3]<<std::endl; 

@@ -21,14 +21,14 @@ namespace contraction{
 
     class Layout{
     public:
-      int Vs = 0;
-      int V = 0;
-      int size_on_site = 0;
+      int Vs;
+      int V;
+      int size_on_site;
       Layout_type layout_type;
-      int nx = 0;
-      int ny = 0;
-      int nz = 0;
-      int nt = 0;
+      int nx;
+      int ny;
+      int nz;
+      int nt;
 
       Layout(int nx_, int ny_, int nz_, int nt_, Layout_type layout_type_, mpi::communicator world){
 	  layout_type = layout_type_;
@@ -85,10 +85,10 @@ namespace contraction{
 
     class Position{
     public:
-	int x = 0;
-	int y = 0;
-	int z = 0;
-	int t = 0;
+	int x=0;
+	int y=0;
+	int z=0;
+	int t=0;
 	Layout* layout;
 	Position(class Layout* layout_){layout = layout_;}
 	int get_site_rank(){

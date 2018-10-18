@@ -1,6 +1,6 @@
 include ../make.inc
 
-CXX += $(INCL) $(LIB) 
+CXX += $(INCL) 
 
 HEADS = ../includes/gamma.h\
 	../includes/handle_input.h\
@@ -12,10 +12,10 @@ exe = main gamma
 all: $(exe)
 
 main: main.cpp $(HEADS) ../lib/libcontraction.a
-	$(CXX) $(CXXFLAGS) main.cpp -o main
+	$(CXX) $(CXXFLAGS) main.cpp -o main $(LIB)
 
 gamma: gamma.cpp $(HEADS) ../lib/libcontraction.a
-	$(CXX) $(CXXFLAGS) gamma.cpp -o gamma
+	$(CXX) $(CXXFLAGS) gamma.cpp -o gamma $(LIB)
 
 ../lib/libcontraction.a:
 	make -C ../lib all

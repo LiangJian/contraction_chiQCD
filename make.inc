@@ -1,4 +1,4 @@
-CXX = mpicxx-openmpi-mp
-CXXFLAGS = -O3 -std=c++11 
-INCL=-I/Users/lj/packages/eigen -I/opt/local/include 
-LIB=-L/opt/local/lib -lboost_program_options-mt -lboost_mpi-mt ../lib/libcontraction.a
+CXX = CC 
+CXXFLAGS = -O3 -w -std=c++11
+INCL=-I/scratch3/scratchdirs/jliang/test_contraction/Armadillo_Eigen/eigen-eigen-b3f3d4950030 -I/opt/local/include -I/usr/common/software/boost/1.63/intel/sandybridge/include 
+LIB=-L/opt/local/lib ../lib/libcontraction.a -mkl -mkl=parallel -L/usr/common/software/boost/1.63/intel/sandybridge/lib -lboost_program_options -lboost_mpi 

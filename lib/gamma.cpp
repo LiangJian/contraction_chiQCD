@@ -1,6 +1,7 @@
 #include "../includes/gamma.h"
 
 namespace contraction{
+
   int gamma_init(std::vector<sm>&g){
       std::vector<Trip> tripletList;
       Eigen::SparseMatrix<std::complex<double> > mat(4,4);
