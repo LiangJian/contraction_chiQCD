@@ -6,10 +6,12 @@
 #ifndef __LAYOUT__
 #define __LAYOUT__
 
+#include "print.h"
 #include <boost/mpi/environment.hpp>
 #include <boost/mpi/communicator.hpp>
 
 namespace mpi = boost::mpi;
+
 namespace contraction{
 
     enum Layout_type{
@@ -29,21 +31,24 @@ namespace contraction{
       int ny;
       int nz;
       int nt;
+      mpi::communicator world;
 
-      Layout(int nx_, int ny_, int nz_, int nt_, Layout_type layout_type_, mpi::communicator world){
+      Layout(int nx_, int ny_, int nz_, int nt_, Layout_type layout_type_, mpi::communicator & world_){
 	  layout_type = layout_type_;
 	  nx = nx_;
 	  ny = ny_;
 	  nz = nz_;
 	  nt = nt_;
+	  world = world_;
 	  Vs = nx * ny * nz;
 	  V = Vs * nt;
 	  size_on_site = V / world.size();
 	  if(size_on_site * world.size() != V){
-	      std::cout<<"wrong MPI size for layout"<<std::endl;
+	      COUT<<"wrong MPI size for layout"<<std::endl;
 	      exit(1);
 	  }
       }
+
       /*************************************
        * order of the space-time: t z y x !
        * ***********************************/
@@ -54,6 +59,7 @@ namespace contraction{
 	  }else if(layout_type==checkerboard){
 	      return (((it * nz + iz) * ny + iy) * nx + ix)/2 + (ix + iy + iz + it)%2 * V / 2;
 	  }else{
+	      COUT<<"wrong type of layout"<<std::endl;
 	      return -1;
 	  }
 	  return -1;
@@ -90,7 +96,8 @@ namespace contraction{
 	int z=0;
 	int t=0;
 	Layout* layout;
-	Position(class Layout* layout_){layout = layout_;}
+	Position(class Layout* layout_, int x_, int y_, int z_, int t_):x(x_),y(y_),z(z_),t(t_)
+	{layout = layout_;}
 	int get_site_rank(){
 	    return layout->get_site_rank(t,z,y,x);
 	}
