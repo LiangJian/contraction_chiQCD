@@ -5,7 +5,8 @@ CXX += $(INCL)
 HEADS = ../includes/gamma.h\
 	../includes/handle_input.h\
 	../includes/lattice_type.h\
-	../includes/layout.h
+	../includes/layout.h\
+	../includes/print.h
 
 exe = main gamma
 
