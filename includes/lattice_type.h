@@ -8,6 +8,7 @@
 
 #include <Eigen/Dense>
 #include "layout.h"
+#include "gamma.h"
 #include <memory>
 
 namespace mpi = boost::mpi;
@@ -147,28 +148,36 @@ namespace contraction{
       }
   };
   
-  template<typename T>
-  class Vector:public Eigen::Matrix< std::complex<T>,  Eigen::Dynamic, 1>{
-  public:
-      Vector(void):Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>(){}
-      template<typename OtherDerived>
-      Vector(const Eigen::MatrixBase<OtherDerived>& other)
-	: Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>(other)
-      { }
-      template<typename OtherDerived>
-      Vector& operator=(const Eigen::MatrixBase <OtherDerived>& other)
-      {
-	  this->Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>::operator=(other);
-	  return *this;
-      }
-  };
+  //template<typename T>
+  //class Vector:public Eigen::Matrix< std::complex<T>,  Eigen::Dynamic, 1>{
+  //public:
+  //    Vector(void):Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>(){}
+  //    template<typename OtherDerived>
+  //    Vector(const Eigen::MatrixBase<OtherDerived>& other)
+  //      : Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>(other)
+  //    { }
+  //    template<typename OtherDerived>
+  //    Vector& operator=(const Eigen::MatrixBase <OtherDerived>& other)
+  //    {
+  //        this->Eigen::Matrix< std::complex<T>, Eigen::Dynamic, 1>::operator=(other);
+  //        return *this;
+  //    }
+  //};
+
+  //template<typename T>
+  //class Lattice_vector{
+  //public:
+  //  std::unique_ptr<Vector<T>[]> vectors;
+  //  Lattice_vector(Layout * layout){
+  //      vectors =  std::unique_ptr<Vector<T>[]>(new Vector<T>[layout->size_on_site]);
+  //  }
+  //};
 
   template<typename T>
-  class Lattice_vector{
+  class Lattice_vector:public std::vector<std::complex<T>>{
   public:
-    std::unique_ptr<Vector<T>[]> vectors;
     Lattice_vector(Layout * layout){
-	vectors =  std::unique_ptr<Vector<T>[]>(new Vector<T>[layout->size_on_site]);
+        this->resize(layout->size_on_site);
     }
   };
 
@@ -282,6 +291,16 @@ namespace contraction{
 
   typedef Lattice_color_spin_matrix<double> prop_d;
   typedef Lattice_color_spin_matrix<float> prop_f;
+
+  template<typename T>
+  void contraction_2(Lattice_color_spin_matrix<T> & p1, Lattice_color_spin_matrix<T> & p2, int gamma_ind1, int gamma_ind2, Lattice_vector<T> & ans){
+    Gammas ga;
+    for(int i=0;i<p1.layout->size_on_site;i++){
+	for(int ic1=0;ic1<12;ic1+=4)
+	for(int ic2=0;ic2<12;ic2+=4)
+	  ans[i] += (p1.color_spin_matrixs[i].block(ic1,ic2,4,4) * ga.g[gamma_ind1] * p2.color_spin_matrixs[i].block(ic1,ic2,4,4).conjugate() * ga.g[gamma_ind2]).trace(); 
+    }
+  }
 }
 
 #endif
