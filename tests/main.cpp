@@ -25,14 +25,12 @@ int main(int ac , char *av[])
   hi.read();
   if(world.rank()==0) hi.list();
 
-  //Layout layout(hi.pw["nx"].as<int>(),hi.pw["ny"].as<int>(),hi.pw["nz"].as<int>(),hi.pw["nt"].as<int>(),trivial,world);
+  Layout layout(hi.pw["nx"].as<int>(),hi.pw["ny"].as<int>(),hi.pw["nz"].as<int>(),hi.pw["nt"].as<int>(),trivial,world);
 
-  Color_vector<double> cv1;
-  cv1 << 1, 2, 3;
-  COUT<<cv1<<std::endl;
-  
-  Color_matrix<double> cm1;
-  auto cv2 = cm1 * cv1;
-  
+  Lattice_color_spin_matrix<double> p1(&layout, "");
+  p1.mock();
+  prop_d p2(&layout, "");
+  p2.mock();
+
   return 0;
 }

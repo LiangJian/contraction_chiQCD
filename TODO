@@ -1,3 +1,4 @@
 Recheck the corrent code.
 Discuss the code structure.
 Add codes to generate mock propagators (maybe also eigen vectors) for furture test.
+Is there any benefit to use 12 by 12 gamma matrices by assuming trivial color structure? 

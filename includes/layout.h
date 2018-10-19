@@ -91,10 +91,10 @@ namespace contraction{
 
     class Position{
     public:
-	int x=0;
-	int y=0;
-	int z=0;
-	int t=0;
+	int x;
+	int y;
+	int z;
+	int t;
 	Layout* layout;
 	Position(class Layout* layout_, int x_, int y_, int z_, int t_):x(x_),y(y_),z(z_),t(t_)
 	{layout = layout_;}
