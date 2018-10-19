@@ -34,10 +34,10 @@ int main(int ac , char *av[])
   p2.mock();
   Lattice_vector<double> corr(&layout);
   auto start = high_resolution_clock::now();
-  for(int i = 0; i<100; ++i){contraction_2(p1,p2,1,1,corr);}
+  for(int i = 0; i<1; ++i){contraction_2(p1,p2,1,1,corr);}
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<milliseconds>(stop - start);
-  std::cout << "time used: "<<duration.count()/1000. <<" s"<< std::endl;
+  COUT << "time used: "<<duration.count()/1000. <<" s"<< std::endl;
 
   return 0;
 }
